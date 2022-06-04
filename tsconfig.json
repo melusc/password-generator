@@ -1,0 +1,9 @@
+{
+	"extends": "@lusc/tsconfig",
+	"compilerOptions": {
+		"outDir": "dist",
+		"rootDir": "src",
+		"esModuleInterop": false
+	},
+	"include": ["src/*.ts"]
+}
