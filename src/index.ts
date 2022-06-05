@@ -15,6 +15,28 @@ type Options = {
 	minSpecial: number;
 };
 
+const normalizeOptions = (options: Partial<Options>) => {
+	options.length ??= 14;
+
+	if (
+		!options.uppercase
+		&& !options.lowercase
+		&& !options.special
+		&& !options.number
+	) {
+		options.lowercase = true;
+		options.uppercase = true;
+		options.number = true;
+	}
+
+	options.lowercase = Boolean(options.lowercase);
+	options.uppercase = Boolean(options.uppercase);
+	options.special = Boolean(options.special);
+	options.number = Boolean(options.number);
+
+	options.length = Math.max(options.length, 5);
+};
+
 const defaultOptions: Readonly<Options> = {
 	length: 14,
 	ambiguous: false,
@@ -85,6 +107,7 @@ const shuffleArray = (array: string[]) => {
 
 // eslint-disable-next-line complexity
 const generatePassword = (options: Partial<Options>): string => {
+	normalizeOptions(options);
 	// Overload defaults with given options
 	const o: Options = {...defaultOptions, ...options};
 
@@ -98,25 +121,25 @@ const generatePassword = (options: Partial<Options>): string => {
 	}
 
 	const positions: string[] = [];
-	if (o.lowercase && o.minLowercase > 0) {
+	if (o.lowercase) {
 		for (let i = 0; i < o.minLowercase; i++) {
 			positions.push('l');
 		}
 	}
 
-	if (o.uppercase && o.minUppercase > 0) {
+	if (o.uppercase) {
 		for (let i = 0; i < o.minUppercase; i++) {
 			positions.push('u');
 		}
 	}
 
-	if (o.number && o.minNumber > 0) {
+	if (o.number) {
 		for (let i = 0; i < o.minNumber; i++) {
 			positions.push('n');
 		}
 	}
 
-	if (o.special && o.minSpecial > 0) {
+	if (o.special) {
 		for (let i = 0; i < o.minSpecial; i++) {
 			positions.push('s');
 		}
@@ -194,11 +217,7 @@ const generatePassword = (options: Partial<Options>): string => {
 	return password;
 };
 
-const {
-	help: _help,
-	input: _input,
-	...flags
-} = meow(
+const {flags} = meow(
 	`
 Usage: bw [options]
 
@@ -228,30 +247,26 @@ Options:
 	{
 		importMeta: import.meta,
 		allowUnknownFlags: false,
+		booleanDefault: undefined,
 		flags: {
 			uppercase: {
 				alias: 'u',
 				type: 'boolean',
-				default: defaultOptions.uppercase,
 			},
 			lowercase: {
 				alias: 'l',
 				type: 'boolean',
-				default: defaultOptions.lowercase,
 			},
 			number: {
 				alias: 'n',
 				type: 'boolean',
-				default: defaultOptions.number,
 			},
 			special: {
 				alias: 's',
 				type: 'boolean',
-				default: defaultOptions.special,
 			},
 			length: {
 				type: 'number',
-				default: defaultOptions.length,
 			},
 			help: {
 				alias: 'h',
@@ -259,6 +274,6 @@ Options:
 			},
 		},
 	},
-).flags;
+);
 
 console.log(generatePassword(flags));
