@@ -16,8 +16,6 @@ type Options = {
 };
 
 const normalizeOptions = (options: Partial<Options>) => {
-	options.length ??= 14;
-
 	if (
 		!options.uppercase
 		&& !options.lowercase
@@ -27,14 +25,15 @@ const normalizeOptions = (options: Partial<Options>) => {
 		options.lowercase = true;
 		options.uppercase = true;
 		options.number = true;
+		options.special = true;
 	}
 
-	options.lowercase = Boolean(options.lowercase);
-	options.uppercase = Boolean(options.uppercase);
-	options.special = Boolean(options.special);
-	options.number = Boolean(options.number);
+	options.lowercase ??= false;
+	options.uppercase ??= false;
+	options.number ??= false;
+	options.special ??= false;
 
-	options.length = Math.max(options.length, 5);
+	options.length = Math.max(options.length ?? defaultOptions.length, 5);
 };
 
 const defaultOptions: Readonly<Options> = {
@@ -43,59 +42,18 @@ const defaultOptions: Readonly<Options> = {
 	number: true,
 	minNumber: 1,
 	uppercase: true,
-	minUppercase: 0,
+	minUppercase: 1,
 	lowercase: true,
-	minLowercase: 0,
-	special: false,
+	minLowercase: 1,
+	special: true,
 	minSpecial: 1,
 } as const;
 
-const sanitizePasswordLength = (options: Options) => {
-	let minUppercaseCalc = 0;
-	let minLowercaseCalc = 0;
-	let minNumberCalc: number = options.minNumber;
-	let minSpecialCalc: number = options.minSpecial;
-
-	if (options.uppercase && options.minUppercase <= 0) {
-		minUppercaseCalc = 1;
-	} else if (!options.uppercase) {
-		minUppercaseCalc = 0;
-	}
-
-	if (options.lowercase && options.minLowercase <= 0) {
-		minLowercaseCalc = 1;
-	} else if (!options.lowercase) {
-		minLowercaseCalc = 0;
-	}
-
-	if (options.number && options.minNumber <= 0) {
-		minNumberCalc = 1;
-	} else if (!options.number) {
-		minNumberCalc = 0;
-	}
-
-	if (options.special && options.minSpecial <= 0) {
-		minSpecialCalc = 1;
-	} else if (!options.special) {
-		minSpecialCalc = 0;
-	}
-
-	// This should never happen but is a final safety net
-	if (options.length === 0) {
-		options.length = 10;
-	}
-
-	const minLength: number
-		= minUppercaseCalc + minLowercaseCalc + minNumberCalc + minSpecialCalc;
-	// Normalize and Generation both require this modification
-	if (options.length < minLength) {
-		options.length = minLength;
-	}
-
-	options.minUppercase = minUppercaseCalc;
-	options.minLowercase = minLowercaseCalc;
-	options.minNumber = minNumberCalc;
-	options.minSpecial = minSpecialCalc;
+const setMinLengths = (options: Options) => {
+	options.minSpecial = options.special ? 1 : 0;
+	options.minLowercase = options.lowercase ? 1 : 0;
+	options.minUppercase = options.uppercase ? 1 : 0;
+	options.minNumber = options.number ? 1 : 0;
 };
 
 const shuffleArray = (array: string[]) => {
@@ -105,44 +63,29 @@ const shuffleArray = (array: string[]) => {
 	}
 };
 
-// eslint-disable-next-line complexity
 const generatePassword = (options: Partial<Options>): string => {
 	normalizeOptions(options);
 	// Overload defaults with given options
 	const o: Options = {...defaultOptions, ...options};
 
 	// Sanitize
-	sanitizePasswordLength(o);
-
-	const minLength: number
-		= o.minUppercase + o.minLowercase + o.minNumber + o.minSpecial;
-	if (o.length < minLength) {
-		o.length = minLength;
-	}
+	setMinLengths(o);
 
 	const positions: string[] = [];
-	if (o.lowercase) {
-		for (let i = 0; i < o.minLowercase; i++) {
-			positions.push('l');
-		}
+	for (let i = 0; i < o.minLowercase; i++) {
+		positions.push('l');
 	}
 
-	if (o.uppercase) {
-		for (let i = 0; i < o.minUppercase; i++) {
-			positions.push('u');
-		}
+	for (let i = 0; i < o.minUppercase; i++) {
+		positions.push('u');
 	}
 
-	if (o.number) {
-		for (let i = 0; i < o.minNumber; i++) {
-			positions.push('n');
-		}
+	for (let i = 0; i < o.minNumber; i++) {
+		positions.push('n');
 	}
 
-	if (o.special) {
-		for (let i = 0; i < o.minSpecial; i++) {
-			positions.push('s');
-		}
+	for (let i = 0; i < o.minSpecial; i++) {
+		positions.push('s');
 	}
 
 	while (positions.length < o.length) {
