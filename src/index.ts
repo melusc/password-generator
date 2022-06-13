@@ -1,4 +1,5 @@
 import {randomInt} from 'node:crypto';
+import {exit} from 'node:process';
 
 import meow from 'meow';
 
@@ -160,7 +161,7 @@ const generatePassword = (options: Partial<Options>): string => {
 	return password;
 };
 
-const {flags} = meow(
+const {flags, input} = meow(
 	`
 Usage: bw [options]
 
@@ -218,5 +219,15 @@ Options:
 		},
 	},
 );
+
+if (input.length > 0 && !/^\d+$/.test(input[0]!)) {
+	console.error(
+		'\u001B[91mUnexpected non-digit input for length: "%s"\u001B[0m',
+		input[0],
+	);
+	exit(1);
+}
+
+flags.length ??= Number(input[0]);
 
 console.log(generatePassword(flags));
