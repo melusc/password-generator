@@ -35,6 +35,9 @@ const normalizeOptions = (options: Partial<Options>) => {
 	options.special ??= false;
 
 	options.length = Math.max(options.length ?? defaultOptions.length, 5);
+	if (Number.isNaN(options.length)) {
+		options.length = defaultOptions.length;
+	}
 };
 
 const defaultOptions: Readonly<Options> = {
