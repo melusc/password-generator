@@ -2,7 +2,7 @@ import {exit} from 'node:process';
 import {parseArgs} from 'node:util';
 import {generatePassword} from './generate-password.js';
 
-import {normalizeOptions} from './utils.js';
+import {normalizeOptions, red} from './utils.js';
 
 const {values: flags, positionals: input} = parseArgs({
 	options: {
@@ -71,5 +71,10 @@ Options:
 }
 
 const options = normalizeOptions(flags, input);
+
+if (options instanceof Error) {
+	console.error(red(options.message));
+	exit(1);
+}
 
 console.log(generatePassword(options));

@@ -14,7 +14,8 @@
 	"scripts": {
 		"build": "rimraf dist && tsc",
 		"start": "node dist/index",
-		"fmt": "prettier -w . && xo --fix"
+		"fmt": "prettier -w . && xo --fix",
+		"test": "yarn build && node --test dist/test"
 	},
 	"type": "module"
 }

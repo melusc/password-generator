@@ -1,7 +1,6 @@
 import {randomInt} from 'node:crypto';
-import {exit} from 'node:process';
 
-const defaultOptions: Readonly<Options> = {
+export const defaultOptions: Readonly<Options> = {
 	length: 14,
 	ambiguous: false,
 	number: true,
@@ -13,6 +12,8 @@ const defaultOptions: Readonly<Options> = {
 	special: true,
 	minSpecial: 1,
 } as const;
+
+export const red = (s: string) => `\u001B[91m${s}\u001B[0m`;
 
 export type Options = {
 	length: number;
@@ -36,7 +37,7 @@ export const normalizeOptions = (
 		number: boolean | undefined;
 	}>,
 	input: string[],
-): Options => {
+): Options | Error => {
 	const result = {...defaultOptions};
 
 	result.uppercase = flags.uppercase ?? false;
@@ -58,16 +59,13 @@ export const normalizeOptions = (
 
 	const lengthOverride = flags.length ?? input[0];
 	if (lengthOverride !== undefined) {
-		if (!/^\d+$/.test(lengthOverride)) {
-			console.error(
-				'\u001B[91mLength received a non-digit input: "%s"\u001B[0m',
-				lengthOverride,
+		if (!/^\s*\d+\s*$/.test(lengthOverride)) {
+			return new Error(
+				`Length received a non-digit input: "${lengthOverride}"`,
 			);
-
-			exit(1);
 		}
 
-		result.length = Number(lengthOverride);
+		result.length = Number(lengthOverride.trim());
 	}
 
 	result.minSpecial = result.special ? 1 : 0;
@@ -83,8 +81,11 @@ export const normalizeOptions = (
 			+ result.minLowercase,
 	);
 
-	if (Number.isNaN(result.length)) {
+	if (!Number.isInteger(result.length)) {
+		// In theory it should never get here
 		result.length = defaultOptions.length;
+
+		return new Error(`Unexpected non-integer for length: ${result.length}`);
 	}
 
 	return result;

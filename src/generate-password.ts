@@ -2,7 +2,7 @@ import {randomInt} from 'node:crypto';
 
 import {Options, shuffleArray} from './utils.js';
 
-export const generatePassword = (options: Options): string => {
+export const generatePositions = (options: Options): string[] => {
 	const positions: string[] = [];
 	for (let i = 0; i < options.minLowercase; i++) {
 		positions.push('l');
@@ -23,6 +23,12 @@ export const generatePassword = (options: Options): string => {
 	while (positions.length < options.length) {
 		positions.push('a');
 	}
+
+	return positions;
+};
+
+export const generatePassword = (options: Options): string => {
+	const positions = generatePositions(options);
 
 	// Shuffle
 	shuffleArray(positions);

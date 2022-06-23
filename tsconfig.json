@@ -2,9 +2,9 @@
 	"extends": "@lusc/tsconfig",
 	"compilerOptions": {
 		"outDir": "dist",
-		"rootDir": "src",
+		"rootDir": ".",
 		"esModuleInterop": false,
 		"moduleResolution": "NodeNext"
 	},
-	"include": ["src/*.ts"]
+	"include": ["src/*.ts", "test/*.ts"]
 }
