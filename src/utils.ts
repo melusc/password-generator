@@ -2,7 +2,6 @@ import {randomInt} from 'node:crypto';
 
 export const defaultOptions: Readonly<Options> = {
 	length: 14,
-	ambiguous: false,
 	number: true,
 	uppercase: true,
 	lowercase: true,
@@ -13,7 +12,6 @@ export const red = (s: string) => `\u001B[91m${s}\u001B[0m`;
 
 export type Options = {
 	length: number;
-	ambiguous: boolean;
 	number: boolean;
 	uppercase: boolean;
 	lowercase: boolean;

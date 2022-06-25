@@ -6,7 +6,6 @@ import {defaultOptions, normalizeOptions, Options} from '../src/utils.js';
 await test('normalizeOptions', async t => {
 	await t.test('Empty', () => {
 		assert.deepEqual<Options>(normalizeOptions({}, []), {
-			ambiguous: false,
 			lowercase: true,
 			uppercase: true,
 			number: true,

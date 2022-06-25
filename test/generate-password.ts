@@ -5,7 +5,6 @@ import {generatePositions} from '../src/generate-password.js';
 import {defaultOptions, Options} from '../src/utils.js';
 
 const defaultOff: Options = {
-	ambiguous: false,
 	length: 0,
 	lowercase: false,
 	uppercase: false,

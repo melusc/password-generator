@@ -37,28 +37,19 @@ export const generatePassword = (options: Options): string => {
 	// Build out the char sets
 	let allCharSet = '';
 
-	let lowercaseCharSet = 'abcdefghijkmnopqrstuvwxyz';
-	if (options.ambiguous) {
-		lowercaseCharSet += 'l';
-	}
+	const lowercaseCharSet = 'abcdefghijklmnopqrstuvwxyz';
 
 	if (options.lowercase) {
 		allCharSet += lowercaseCharSet;
 	}
 
-	let uppercaseCharSet = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
-	if (options.ambiguous) {
-		uppercaseCharSet += 'IO';
-	}
+	const uppercaseCharSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 	if (options.uppercase) {
 		allCharSet += uppercaseCharSet;
 	}
 
-	let numberCharSet = '23456789';
-	if (options.ambiguous) {
-		numberCharSet += '01';
-	}
+	const numberCharSet = '0123456789';
 
 	if (options.number) {
 		allCharSet += numberCharSet;
