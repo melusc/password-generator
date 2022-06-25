@@ -4,13 +4,9 @@ export const defaultOptions: Readonly<Options> = {
 	length: 14,
 	ambiguous: false,
 	number: true,
-	minNumber: 1,
 	uppercase: true,
-	minUppercase: 1,
 	lowercase: true,
-	minLowercase: 1,
 	special: true,
-	minSpecial: 1,
 } as const;
 
 export const red = (s: string) => `\u001B[91m${s}\u001B[0m`;
@@ -19,13 +15,9 @@ export type Options = {
 	length: number;
 	ambiguous: boolean;
 	number: boolean;
-	minNumber: number;
 	uppercase: boolean;
-	minUppercase: number;
 	lowercase: boolean;
-	minLowercase: number;
 	special: boolean;
-	minSpecial: number;
 };
 
 export const normalizeOptions = (
@@ -60,26 +52,13 @@ export const normalizeOptions = (
 	const lengthOverride = flags.length ?? input[0];
 	if (lengthOverride !== undefined) {
 		if (!/^\s*\d+\s*$/.test(lengthOverride)) {
-			throw new Error(
-				`Length received a non-digit input: "${lengthOverride}"`,
-			);
+			throw new Error(`Length received a non-digit input: "${lengthOverride}"`);
 		}
 
 		result.length = Number(lengthOverride.trim());
 	}
 
-	result.minSpecial = result.special ? 1 : 0;
-	result.minNumber = result.number ? 1 : 0;
-	result.minUppercase = result.uppercase ? 1 : 0;
-	result.minLowercase = result.lowercase ? 1 : 0;
-
-	result.length = Math.max(
-		result.length,
-		result.minSpecial
-			+ result.minNumber
-			+ result.minUppercase
-			+ result.minLowercase,
-	);
+	result.length = Math.max(result.length, 4);
 
 	if (!Number.isInteger(result.length)) {
 		// In theory it should never get here

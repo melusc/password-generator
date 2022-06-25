@@ -8,13 +8,9 @@ const defaultOff: Options = {
 	ambiguous: false,
 	length: 0,
 	lowercase: false,
-	minLowercase: 0,
 	uppercase: false,
-	minUppercase: 0,
 	number: false,
-	minNumber: 0,
 	special: false,
-	minSpecial: 0,
 };
 
 await test('generatePositions', async t => {
@@ -22,7 +18,6 @@ await test('generatePositions', async t => {
 		assert.deepEqual(
 			generatePositions({
 				...defaultOff,
-				minLowercase: 1,
 				lowercase: true,
 			}),
 			['l'],

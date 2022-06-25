@@ -4,19 +4,20 @@ import {Options, shuffleArray} from './utils.js';
 
 export const generatePositions = (options: Options): string[] => {
 	const positions: string[] = [];
-	for (let i = 0; i < options.minLowercase; i++) {
+
+	if (options.lowercase) {
 		positions.push('l');
 	}
 
-	for (let i = 0; i < options.minUppercase; i++) {
+	if (options.uppercase) {
 		positions.push('u');
 	}
 
-	for (let i = 0; i < options.minNumber; i++) {
+	if (options.number) {
 		positions.push('n');
 	}
 
-	for (let i = 0; i < options.minSpecial; i++) {
+	if (options.special) {
 		positions.push('s');
 	}
 

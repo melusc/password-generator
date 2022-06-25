@@ -5,7 +5,14 @@ import {defaultOptions, normalizeOptions, Options} from '../src/utils.js';
 
 await test('normalizeOptions', async t => {
 	await t.test('Empty', () => {
-		assert.deepEqual<Options>(normalizeOptions({}, []), defaultOptions);
+		assert.deepEqual<Options>(normalizeOptions({}, []), {
+			ambiguous: false,
+			lowercase: true,
+			uppercase: true,
+			number: true,
+			special: true,
+			length: 14,
+		});
 	});
 
 	await t.test('--lowercase', () => {
@@ -19,13 +26,9 @@ await test('normalizeOptions', async t => {
 			{
 				...defaultOptions,
 				lowercase: true,
-				minLowercase: 1,
 				uppercase: false,
-				minUppercase: 0,
 				number: false,
-				minNumber: 0,
 				special: false,
-				minSpecial: 0,
 			},
 		);
 	});
