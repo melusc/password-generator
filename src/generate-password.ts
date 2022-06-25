@@ -55,7 +55,7 @@ export const generatePassword = (options: Options): string => {
 		allCharSet += numberCharSet;
 	}
 
-	const specialCharSet = '!@#$%^&*';
+	const specialCharSet = '~`!@#$%^&*()_-+={[}]|:;"\'<,>.?/';
 	if (options.special) {
 		allCharSet += specialCharSet;
 	}
