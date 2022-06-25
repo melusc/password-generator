@@ -61,14 +61,14 @@ await test('normalizeOptions', async t => {
 	});
 
 	await t.test('--length abc', () => {
-		assert(
+		assert.throws(() => {
 			normalizeOptions(
 				{
 					length: 'abc',
 				},
 				[],
-			) instanceof Error,
-		);
+			);
+		});
 	});
 
 	await t.test('Length as positional: 8', () => {
@@ -79,6 +79,8 @@ await test('normalizeOptions', async t => {
 	});
 
 	await t.test('Length as positional: abc', () => {
-		assert(normalizeOptions({}, ['abc']) instanceof Error);
+		assert.throws(() => {
+			normalizeOptions({}, ['abc']);
+		});
 	});
 });

@@ -37,7 +37,7 @@ export const normalizeOptions = (
 		number: boolean | undefined;
 	}>,
 	input: string[],
-): Options | Error => {
+): Options => {
 	const result = {...defaultOptions};
 
 	result.uppercase = flags.uppercase ?? false;
@@ -60,7 +60,7 @@ export const normalizeOptions = (
 	const lengthOverride = flags.length ?? input[0];
 	if (lengthOverride !== undefined) {
 		if (!/^\s*\d+\s*$/.test(lengthOverride)) {
-			return new Error(
+			throw new Error(
 				`Length received a non-digit input: "${lengthOverride}"`,
 			);
 		}
@@ -85,7 +85,7 @@ export const normalizeOptions = (
 		// In theory it should never get here
 		result.length = defaultOptions.length;
 
-		return new Error(`Unexpected non-integer for length: ${result.length}`);
+		throw new Error(`Unexpected non-integer for length: ${result.length}`);
 	}
 
 	return result;

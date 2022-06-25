@@ -70,11 +70,14 @@ Options:
 	exit(0);
 }
 
-const options = normalizeOptions(flags, input);
-
-if (options instanceof Error) {
-	console.error(red(options.message));
-	exit(1);
+try {
+	const options = normalizeOptions(flags, input);
+	console.log(generatePassword(options));
+} catch (error: unknown) {
+	if (error instanceof Error) {
+		console.error(red(error.message));
+		exit(1);
+	} else {
+		throw error;
+	}
 }
-
-console.log(generatePassword(options));
