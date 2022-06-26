@@ -22,9 +22,6 @@ const {values: flags, positionals: input} = parseArgs({
 			short: 's',
 			type: 'boolean',
 		},
-		length: {
-			type: 'string',
-		},
 		help: {
 			short: 'h',
 			type: 'boolean',
@@ -46,20 +43,19 @@ Options:
   -l, --lowercase          Include lowercase characters.
   -n, --number             Include numeric characters.
   -s, --special            Include special characters.
-  --length <length>        Length of the password.
   -h, --help               display help for command
 
   Notes:
 
-    Default options are \`-uln --length 14\`.
+    Default options are \`-luns 14\`.
 
-    Minimum \`length\` is 5.
+    Minimum \`length\` is 4.
 
   Examples:
 
     bw
-    bw -u -l --length 18
-    bw -ulns --length 25
+    bw -u -l 18
+    bw -s 25
     bw -ul
 `
 			.trim()

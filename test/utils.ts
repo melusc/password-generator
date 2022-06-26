@@ -32,55 +32,21 @@ await test('normalizeOptions', async t => {
 		);
 	});
 
-	await t.test('--length 14', () => {
-		assert.deepEqual<Options>(
-			normalizeOptions(
-				{
-					length: '16',
-				},
-				[],
-			),
-			{
-				...defaultOptions,
-				length: 16,
-			},
-		);
-	});
-
-	await t.test('--length 2', () => {
-		assert.deepEqual<Options>(
-			normalizeOptions(
-				{
-					length: '2',
-				},
-				[],
-			),
-			{
-				...defaultOptions,
-				length: 4,
-			},
-		);
-	});
-
-	await t.test('--length abc', () => {
-		assert.throws(() => {
-			normalizeOptions(
-				{
-					length: 'abc',
-				},
-				[],
-			);
+	await t.test('Length 2', () => {
+		assert.deepEqual<Options>(normalizeOptions({}, ['2']), {
+			...defaultOptions,
+			length: 4,
 		});
 	});
 
-	await t.test('Length as positional: 8', () => {
+	await t.test('Length 8', () => {
 		assert.deepEqual<Options>(normalizeOptions({}, ['8']), {
 			...defaultOptions,
 			length: 8,
 		});
 	});
 
-	await t.test('Length as positional: abc', () => {
+	await t.test('Length abc', () => {
 		assert.throws(() => {
 			normalizeOptions({}, ['abc']);
 		});

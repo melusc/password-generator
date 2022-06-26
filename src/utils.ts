@@ -20,7 +20,6 @@ export type Options = {
 
 export const normalizeOptions = (
 	flags: Partial<{
-		length: string | undefined;
 		uppercase: boolean | undefined;
 		lowercase: boolean | undefined;
 		special: boolean | undefined;
@@ -47,23 +46,17 @@ export const normalizeOptions = (
 		result.special = true;
 	}
 
-	const lengthOverride = flags.length ?? input[0];
-	if (lengthOverride !== undefined) {
-		if (!/^\s*\d+\s*$/.test(lengthOverride)) {
-			throw new Error(`Length received a non-digit input: "${lengthOverride}"`);
-		}
+	const lengthOverride = input[0];
 
-		result.length = Number(lengthOverride.trim());
+	if (lengthOverride !== undefined) {
+		result.length = Number(lengthOverride.trim().trim());
+
+		if (!Number.isInteger(result.length)) {
+			throw new TypeError(`Non-digit input for length: "${lengthOverride}"`);
+		}
 	}
 
 	result.length = Math.max(result.length, 4);
-
-	if (!Number.isInteger(result.length)) {
-		// In theory it should never get here
-		result.length = defaultOptions.length;
-
-		throw new Error(`Unexpected non-integer for length: ${result.length}`);
-	}
 
 	return result;
 };
