@@ -31,7 +31,7 @@ export const generatePositions = (options: Options): string[] => {
 const lowercaseCharSet = 'abcdefghijklmnopqrstuvwxyz';
 const uppercaseCharSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const numberCharSet = '0123456789';
-const specialCharSet = '~!@#$%^&*()_-+={[}]|:;<,>.?/';
+const specialCharSet = '~!@#$%^&*()_-+=:;<,>.?/';
 
 export const generatePassword = (options: Options): string => {
 	const positions = generatePositions(options);
