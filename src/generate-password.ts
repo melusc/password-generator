@@ -2,8 +2,10 @@ import {randomInt} from 'node:crypto';
 
 import {Options, shuffleArray} from './utils.js';
 
-export const generatePositions = (options: Options): string[] => {
-	const positions: string[] = [];
+type Chars = 'a' | 'l' | 'n' | 's' | 'u';
+
+export const generatePositions = (options: Options): Chars[] => {
+	const positions: Chars[] = [];
 
 	if (options.lowercase) {
 		positions.push('l');
@@ -58,29 +60,17 @@ export const generatePassword = (options: Options): string => {
 		allCharSet += specialCharSet;
 	}
 
+	const map = {
+		a: allCharSet,
+		l: lowercaseCharSet,
+		n: numberCharSet,
+		s: specialCharSet,
+		u: uppercaseCharSet,
+	} as const;
+
 	let password = '';
 	for (let i = 0; i < options.length; i++) {
-		let positionChars: string;
-		switch (positions[i]) {
-			case 'l':
-				positionChars = lowercaseCharSet;
-				break;
-			case 'u':
-				positionChars = uppercaseCharSet;
-				break;
-			case 'n':
-				positionChars = numberCharSet;
-				break;
-			case 's':
-				positionChars = specialCharSet;
-				break;
-			case 'a':
-				positionChars = allCharSet;
-				break;
-			default:
-				throw new Error('Unexpected default branch'); // Should never happen
-		}
-
+		const positionChars = map[positions[i]!];
 		const randomCharIndex = randomInt(positionChars.length - 1);
 		password += positionChars.charAt(randomCharIndex);
 	}

@@ -63,7 +63,7 @@ export const normalizeOptions = (
 	return result;
 };
 
-export const shuffleArray = (array: string[]) => {
+export const shuffleArray = <T>(array: T[]) => {
 	for (let i = array.length - 1; i > 0; i--) {
 		const j = randomInt(i);
 		[array[i], array[j]] = [array[j]!, array[i]!];
