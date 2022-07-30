@@ -18,6 +18,19 @@ export type Options = {
 	special: boolean;
 };
 
+const getMinLength = (options: Options) => {
+	let result = 0;
+
+	/* eslint-disable curly */
+	if (options.lowercase) ++result;
+	if (options.uppercase) ++result;
+	if (options.special) ++result;
+	if (options.number) ++result;
+	/* eslint-enable curly */
+
+	return result;
+};
+
 export const normalizeOptions = (
 	flags: Partial<{
 		uppercase: boolean | undefined;
@@ -56,7 +69,7 @@ export const normalizeOptions = (
 		}
 	}
 
-	result.length = Math.max(result.length, 4);
+	result.length = Math.max(result.length, getMinLength(result));
 
 	return result;
 };
