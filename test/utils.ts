@@ -35,7 +35,7 @@ await test('normalizeOptions', async t => {
 	await t.test('Length 2', () => {
 		assert.deepEqual<Options>(normalizeOptions({}, ['2']), {
 			...defaultOptions,
-			length: 4,
+			length: 2,
 		});
 	});
 

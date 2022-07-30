@@ -30,10 +30,10 @@ export const generatePositions = (options: Options): Chars[] => {
 	return positions;
 };
 
-const lowercaseCharSet = 'abcdefghijklmnopqrstuvwxyz';
-const uppercaseCharSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-const numberCharSet = '0123456789';
-const specialCharSet = '~!@#$%^&*()_-+=:;<,>.?/';
+export const lowercaseCharSet = 'abcdefghijklmnopqrstuvwxyz';
+export const uppercaseCharSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+export const numberCharSet = '0123456789';
+export const specialCharSet = '~!@#$%^&*()_-+=:;<,>.?/';
 
 export const generatePassword = (options: Options): string => {
 	const positions = generatePositions(options);
@@ -69,9 +69,9 @@ export const generatePassword = (options: Options): string => {
 	} as const;
 
 	let password = '';
-	for (let i = 0; i < options.length; i++) {
-		const positionChars = map[positions[i]!];
-		const randomCharIndex = randomInt(positionChars.length - 1);
+	for (const type of positions) {
+		const positionChars = map[type];
+		const randomCharIndex = randomInt(positionChars.length);
 		password += positionChars.charAt(randomCharIndex);
 	}
 

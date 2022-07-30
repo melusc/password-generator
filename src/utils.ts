@@ -20,18 +20,6 @@ export type Options = {
 	special: boolean;
 };
 
-const getMinLength = (options: Options) => {
-	let result = 0;
-
-	for (const set of charSets) {
-		if (options[set]) {
-			++result;
-		}
-	}
-
-	return result;
-};
-
 export const normalizeOptions = (
 	flags: Partial<Omit<Options, 'length'>>,
 	input: string[],
@@ -57,8 +45,6 @@ export const normalizeOptions = (
 			throw new TypeError(`Non-digit input for length: "${lengthOverride}"`);
 		}
 	}
-
-	result.length = Math.max(result.length, getMinLength(result));
 
 	return result;
 };
