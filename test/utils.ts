@@ -10,7 +10,7 @@ await test('normalizeOptions', async t => {
 			uppercase: true,
 			number: true,
 			special: true,
-			length: 14,
+			length: 32,
 		});
 	});
 

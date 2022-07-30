@@ -1,7 +1,7 @@
 import {randomInt} from 'node:crypto';
 
 export const defaultOptions: Readonly<Options> = {
-	length: 14,
+	length: 32,
 	number: true,
 	uppercase: true,
 	lowercase: true,

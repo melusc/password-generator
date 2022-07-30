@@ -36,7 +36,7 @@ await test('generatePositions', async t => {
 	await t.test('default', () => {
 		assert.deepEqual(
 			generatePositions(defaultOptions).sort(),
-			[...'luns', ...'a'.repeat(10)].sort(),
+			[...'luns', ...'a'.repeat(28)].sort(),
 		);
 	});
 });
