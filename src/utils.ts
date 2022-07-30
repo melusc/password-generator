@@ -10,6 +10,8 @@ export const defaultOptions: Readonly<Options> = {
 
 export const red = (s: string) => `\u001B[91m${s}\u001B[0m`;
 
+const charSets = ['uppercase', 'lowercase', 'number', 'special'] as const;
+
 export type Options = {
 	length: number;
 	number: boolean;
@@ -21,42 +23,29 @@ export type Options = {
 const getMinLength = (options: Options) => {
 	let result = 0;
 
-	/* eslint-disable curly */
-	if (options.lowercase) ++result;
-	if (options.uppercase) ++result;
-	if (options.special) ++result;
-	if (options.number) ++result;
-	/* eslint-enable curly */
+	for (const set of charSets) {
+		if (options[set]) {
+			++result;
+		}
+	}
 
 	return result;
 };
 
 export const normalizeOptions = (
-	flags: Partial<{
-		uppercase: boolean | undefined;
-		lowercase: boolean | undefined;
-		special: boolean | undefined;
-		number: boolean | undefined;
-	}>,
+	flags: Partial<Omit<Options, 'length'>>,
 	input: string[],
 ): Options => {
 	const result = {...defaultOptions};
 
-	result.uppercase = flags.uppercase ?? false;
-	result.lowercase = flags.lowercase ?? false;
-	result.number = flags.number ?? false;
-	result.special = flags.special ?? false;
+	for (const set of charSets) {
+		result[set] = flags[set] ?? false;
+	}
 
-	if (
-		!result.uppercase
-		&& !result.lowercase
-		&& !result.special
-		&& !result.number
-	) {
-		result.lowercase = true;
-		result.uppercase = true;
-		result.number = true;
-		result.special = true;
+	if (!charSets.some(set => result[set])) {
+		for (const set of charSets) {
+			result[set] = true;
+		}
 	}
 
 	const lengthOverride = input[0];
