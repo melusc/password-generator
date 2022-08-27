@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import {defaultOptions, normalizeOptions, Options} from '../src/utils.js';
+import {defaultOptions, normalizeOptions, type Options} from '../src/utils.js';
 
 await test('normalizeOptions', async t => {
 	await t.test('Empty', () => {

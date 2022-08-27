@@ -9,7 +9,7 @@ import {
 	specialCharSet,
 	uppercaseCharSet,
 } from '../src/generate-password.js';
-import {defaultOptions, Options} from '../src/utils.js';
+import {defaultOptions, type Options} from '../src/utils.js';
 
 const defaultOff: Options = {
 	length: 0,

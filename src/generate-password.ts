@@ -1,6 +1,6 @@
 import {randomInt} from 'node:crypto';
 
-import {Options, shuffleArray} from './utils.js';
+import {type Options, shuffleArray} from './utils.js';
 
 type Chars = 'a' | 'l' | 'n' | 's' | 'u';
 
