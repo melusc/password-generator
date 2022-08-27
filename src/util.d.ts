@@ -24,7 +24,7 @@ declare module 'node:util' {
 			: TypedFlag<Flags[F]> | undefined;
 	};
 
-	interface Options<Flags extends AnyFlags, Strict extends boolean> {
+	type Options<Flags extends AnyFlags, Strict extends boolean> = {
 		/**
 		Define argument flags.
 
@@ -73,14 +73,14 @@ declare module 'node:util' {
 		@default false if strict is true, otherwise true.
 		*/
 		readonly allowPositionals?: boolean;
-	}
+	};
 
-	interface Result<Flags extends AnyFlags, Strict extends boolean = true> {
+	type Result<Flags extends AnyFlags, Strict extends boolean = true> = {
 		values: Strict extends true
 			? TypedFlags<Flags>
 			: TypedFlags<Flags> & Record<string, unknown>;
 		positionals: string[];
-	}
+	};
 
 	declare const parseArgs: <
 		Flags extends AnyFlags,
