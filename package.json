@@ -17,5 +17,6 @@
 		"fmt": "prettier -w . && xo --fix",
 		"test": "yarn build && node --test dist/test"
 	},
-	"type": "module"
+	"type": "module",
+	"packageManager": "yarn@3.3.0"
 }
