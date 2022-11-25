@@ -2,10 +2,10 @@
 	"devDependencies": {
 		"@lusc/tsconfig": "^2.0.0",
 		"@types/node": "^18.11.9",
-		"prettier": "^2.7.1",
+		"prettier": "^2.8.0",
 		"rimraf": "^3.0.2",
 		"typescript": "^4.9.3",
-		"xo": "^0.53.0"
+		"xo": "^0.53.1"
 	},
 	"engines": {
 		"node": "^18.3.0"
