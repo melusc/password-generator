@@ -1,7 +1,7 @@
 import {exit} from 'node:process';
 import {parseArgs} from 'node:util';
-import {generatePassword} from './generate-password.js';
 
+import {generatePassword} from './generate-password.js';
 import {normalizeOptions, red} from './utils.js';
 
 const {values: flags, positionals: input} = parseArgs({
