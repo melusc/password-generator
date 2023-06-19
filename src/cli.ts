@@ -34,7 +34,7 @@ if (flags.help) {
 	console.log();
 	console.log(
 		`
-Usage: bw [options]
+Usage: pw [options]
 
 Generate a password/passphrase.
 
@@ -53,10 +53,10 @@ Options:
 
   Examples:
 
-    bw
-    bw -u -l 18
-    bw -s 25
-    bw -ul
+    pw
+    pw -u -l 18
+    pw -s 25
+    pw -ul
 `
 			.trim()
 			.replace(/^/gm, '  '),
