@@ -26,10 +26,12 @@ export const normalizeOptions = (
 ): Options => {
 	const result = {...defaultOptions};
 
+	// Only enable the explicitely enabled character sets
 	for (const set of charSets) {
 		result[set] = flags[set] ?? false;
 	}
 
+	// Unless none are enabled, in that case enable all
 	if (!charSets.some(set => result[set])) {
 		for (const set of charSets) {
 			result[set] = true;
@@ -39,10 +41,10 @@ export const normalizeOptions = (
 	const lengthOverride = input[0];
 
 	if (lengthOverride !== undefined) {
-		result.length = Number(lengthOverride.trim().trim());
+		result.length = Number(lengthOverride.trim());
 
 		if (!Number.isInteger(result.length)) {
-			throw new TypeError(`Non-digit input for length: "${lengthOverride}"`);
+			throw new TypeError(`Received non-integer length: "${lengthOverride}"`);
 		}
 	}
 
