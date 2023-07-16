@@ -59,7 +59,7 @@ Options:
     pw -ul
 `
 			.trim()
-			.replace(/^/gm, '  '),
+			.replaceAll(/^/gm, '  '),
 	);
 	console.log();
 
