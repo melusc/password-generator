@@ -1,6 +1,6 @@
 {
 	"devDependencies": {
-		"@lusc/tsconfig": "^3.0.0",
+		"@lusc/tsconfig": "^4.0.0",
 		"@types/node": "^20.5.8",
 		"prettier": "^3.0.3",
 		"rimraf": "^5.0.1",
