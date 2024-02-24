@@ -52,8 +52,8 @@ export const normalizeOptions = (
 };
 
 export const shuffleArray = <T>(array: T[]) => {
-	for (let i = array.length - 1; i > 0; i--) {
-		const j = randomInt(i);
-		[array[i], array[j]] = [array[j]!, array[i]!];
+	for (let index1 = array.length - 1; index1 > 0; index1--) {
+		const index2 = randomInt(index1);
+		[array[index1], array[index2]] = [array[index2]!, array[index1]!];
 	}
 };
