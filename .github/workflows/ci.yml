@@ -16,7 +16,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
 
       - name: Enable corepack
         run: corepack enable
@@ -33,4 +33,4 @@ jobs:
         run: yarn build
 
       - name: Test
-        run: node --test dist/test
+        run: yarn test
