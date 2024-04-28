@@ -33,4 +33,4 @@ jobs:
         run: yarn build
 
       - name: Test
-        run: node --test dist/test
+        run: yarn test

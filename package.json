@@ -15,7 +15,7 @@
 		"build": "rimraf dist && tsc",
 		"start": "node dist/index",
 		"fmt": "prettier -w . && xo --fix",
-		"test": "yarn build && node --test dist/test"
+		"test": "yarn build && node --test dist/test/*.js"
 	},
 	"type": "module",
 	"packageManager": "yarn@4.1.1"
