@@ -123,10 +123,10 @@ await test('generatePassword', async t => {
 			new Set([...password].sort()),
 			new Set(
 				[
-					...(uppercaseCharSet
-						+ lowercaseCharSet
-						+ numberCharSet
-						+ specialCharSet),
+					...(uppercaseCharSet +
+						lowercaseCharSet +
+						numberCharSet +
+						specialCharSet),
 				].sort(),
 			),
 		);
