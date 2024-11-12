@@ -1,5 +1,5 @@
-import test from 'node:test';
 import assert from 'node:assert/strict';
+import test from 'node:test';
 
 import {defaultOptions, normalizeOptions, type Options} from '../src/utils.js';
 
