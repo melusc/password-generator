@@ -2,78 +2,48 @@ import {randomInt} from 'node:crypto';
 
 import {type Options, shuffleArray} from './utils.js';
 
-type Chars = 'a' | 'l' | 'n' | 's' | 'u';
-
-export const generatePositions = (options: Options): Chars[] => {
-	const positions: Chars[] = [];
-
-	if (options.lowercase) {
-		positions.push('l');
-	}
-
-	if (options.uppercase) {
-		positions.push('u');
-	}
-
-	if (options.number) {
-		positions.push('n');
-	}
-
-	if (options.special) {
-		positions.push('s');
-	}
-
-	while (positions.length < options.length) {
-		positions.push('a');
-	}
-
-	return positions;
-};
-
 export const lowercaseCharSet = 'abcdefghijklmnopqrstuvwxyz';
 export const uppercaseCharSet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 export const numberCharSet = '0123456789';
 export const specialCharSet = '~!@#$%^&*()_-+=:;<,>.?/';
 
-export const generatePassword = (options: Options): string => {
-	const positions = generatePositions(options);
+function randomChar(chars: string) {
+	const index = randomInt(chars.length);
+	return chars.charAt(index);
+}
 
-	// Shuffle
-	shuffleArray(positions);
-
-	// Build out the char sets
+export function generatePassword(options: Options): string {
+	// For `-luns` it pushes a lowercase, uppercase, etc. character
+	// to the password, to guarantee at least one of each
+	// Any requested type is also pushed to `allCharSet`
+	// The rest of the password will be taken from there
 	let allCharSet = '';
+	const password: string[] = [];
 
 	if (options.lowercase) {
 		allCharSet += lowercaseCharSet;
+		password.push(randomChar(lowercaseCharSet));
 	}
 
 	if (options.uppercase) {
 		allCharSet += uppercaseCharSet;
+		password.push(randomChar(uppercaseCharSet));
 	}
 
 	if (options.number) {
 		allCharSet += numberCharSet;
+		password.push(randomChar(numberCharSet));
 	}
 
 	if (options.special) {
 		allCharSet += specialCharSet;
+		password.push(randomChar(specialCharSet));
 	}
 
-	const map = {
-		a: allCharSet,
-		l: lowercaseCharSet,
-		n: numberCharSet,
-		s: specialCharSet,
-		u: uppercaseCharSet,
-	} as const;
-
-	let password = '';
-	for (const type of positions) {
-		const positionChars = map[type];
-		const randomCharIndex = randomInt(positionChars.length);
-		password += positionChars.charAt(randomCharIndex);
+	while (password.length < options.length) {
+		password.push(randomChar(allCharSet));
 	}
 
-	return password;
-};
+	shuffleArray(password);
+	return password.join('');
+}

@@ -3,52 +3,28 @@ import test from 'node:test';
 
 import {
 	generatePassword,
-	generatePositions,
 	lowercaseCharSet,
 	numberCharSet,
 	specialCharSet,
 	uppercaseCharSet,
 } from '../src/generate-password.js';
-import {defaultOptions, type Options} from '../src/utils.js';
-
-const defaultOff: Options = {
-	length: 0,
-	lowercase: false,
-	uppercase: false,
-	number: false,
-	special: false,
-};
-
-await test('generatePositions', async t => {
-	await t.test('lowercase, minLowercase 1', () => {
-		assert.deepEqual(
-			generatePositions({
-				...defaultOff,
-				lowercase: true,
-			}),
-			['l'],
-		);
-	});
-
-	await t.test('-luns all 1', () => {
-		assert.deepEqual(
-			generatePositions({
-				...defaultOptions,
-				length: 0,
-			}).sort(),
-			['l', 'n', 'u', 's'].sort(),
-		);
-	});
-
-	await t.test('default', () => {
-		assert.deepEqual(
-			generatePositions(defaultOptions).sort(),
-			[...'luns', ...'a'.repeat(28)].sort(),
-		);
-	});
-});
 
 await test('generatePassword', async t => {
+	await t.test('-luns 2', () => {
+		const password = generatePassword({
+			length: 2,
+			lowercase: true,
+			uppercase: true,
+			special: true,
+			number: true,
+		});
+
+		assert.match(password, /.*[a-z]/);
+		assert.match(password, /.*[A-Z]/);
+		assert.match(password, /.*\d/);
+		assert.match(password, /.*[^\da-z]/i);
+	});
+
 	await t.test('length 200', () => {
 		const password = generatePassword({
 			length: 200,
