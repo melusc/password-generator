@@ -1,7 +1,9 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import {defaultOptions, normalizeOptions, type Options} from '../src/utils.js';
+import type {Options} from '@lusc/util/generate-password';
+
+import {defaultOptions, normalizeOptions} from '../src/utils.js';
 
 await test('normalizeOptions', async t => {
 	await t.test('Empty', () => {

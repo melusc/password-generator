@@ -1,4 +1,4 @@
-import {randomInt} from 'node:crypto';
+import type {Options} from '@lusc/util/generate-password';
 
 export const defaultOptions: Readonly<Options> = {
 	length: 32,
@@ -11,14 +11,6 @@ export const defaultOptions: Readonly<Options> = {
 export const red = (s: string) => `\u001B[91m${s}\u001B[0m`;
 
 const charSets = ['uppercase', 'lowercase', 'number', 'special'] as const;
-
-export type Options = {
-	length: number;
-	number: boolean;
-	uppercase: boolean;
-	lowercase: boolean;
-	special: boolean;
-};
 
 export const normalizeOptions = (
 	flags: Partial<Omit<Options, 'length'>>,
@@ -49,11 +41,4 @@ export const normalizeOptions = (
 	}
 
 	return result;
-};
-
-export const shuffleArray = <T>(array: T[]) => {
-	for (let index1 = array.length - 1; index1 > 0; index1--) {
-		const index2 = randomInt(index1);
-		[array[index1], array[index2]] = [array[index2]!, array[index1]!];
-	}
 };
