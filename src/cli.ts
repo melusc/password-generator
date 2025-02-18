@@ -19,7 +19,7 @@ import {parseArgs} from 'node:util';
 
 import {generatePassword} from '@lusc/util/generate-password';
 
-import {normalizeOptions, red} from './utils.js';
+import {normalizeOptions, red} from './utilities.js';
 
 const {values: flags, positionals: input} = parseArgs({
 	options: {
