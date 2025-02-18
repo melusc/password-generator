@@ -19,7 +19,7 @@ import test from 'node:test';
 
 import type {Options} from '@lusc/util/generate-password';
 
-import {defaultOptions, normalizeOptions} from '../src/utils.js';
+import {defaultOptions, normalizeOptions} from '../src/utilities.js';
 
 await test('normalizeOptions', async t => {
 	await t.test('Empty', () => {
