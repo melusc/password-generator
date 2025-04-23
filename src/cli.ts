@@ -15,11 +15,11 @@
 */
 
 import {exit} from 'node:process';
-import {parseArgs} from 'node:util';
+import {styleText, parseArgs} from 'node:util';
 
 import {generatePassword} from '@lusc/util/generate-password';
 
-import {normalizeOptions, red} from './utilities.js';
+import {normalizeOptions} from './utilities.js';
 
 const {values: flags, positionals: input} = parseArgs({
 	options: {
@@ -90,7 +90,7 @@ try {
 	console.log(generatePassword(options));
 } catch (error: unknown) {
 	if (error instanceof Error) {
-		console.error(red(error.message));
+		console.error(styleText('red', error.message));
 		exit(1);
 	} else {
 		throw error;

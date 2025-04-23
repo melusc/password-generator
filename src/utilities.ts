@@ -24,8 +24,6 @@ export const defaultOptions: Readonly<Options> = {
 	special: true,
 } as const;
 
-export const red = (s: string) => `\u001B[91m${s}\u001B[0m`;
-
 const charSets = ['uppercase', 'lowercase', 'number', 'special'] as const;
 
 export const normalizeOptions = (
