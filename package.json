@@ -14,9 +14,10 @@
 	"private": true,
 	"scripts": {
 		"build": "rimraf dist && tsc",
-		"start": "node dist/index",
+		"start": "node dist/src/cli.js",
+		"dev": "node --run build && node --run start",
 		"fmt": "prettier -w . && eslint --fix",
-		"test": "yarn build && node --test dist/test/*.js"
+		"test": "node --run build && node --test dist/test/*.js"
 	},
 	"type": "module",
 	"packageManager": "yarn@4.7.0",
