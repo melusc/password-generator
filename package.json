@@ -1,15 +1,15 @@
 {
 	"devDependencies": {
-		"@lusc/eslint-config": "^8.0.1",
-		"@lusc/tsconfig": "^7.1.0",
-		"@types/node": "^24.9.1",
-		"eslint": "^9.36.0",
-		"prettier": "^3.6.2",
-		"rimraf": "^6.0.1",
+		"@lusc/eslint-config": "^8.5.0",
+		"@lusc/tsconfig": "^7.2.0",
+		"@types/node": "^24.10.9",
+		"eslint": "^9.39.2",
+		"prettier": "^3.8.0",
+		"rimraf": "^6.1.2",
 		"typescript": "^5.9.3"
 	},
 	"engines": {
-		"node": "^24.9.0"
+		"node": "^24.13.0"
 	},
 	"private": true,
 	"scripts": {
@@ -20,8 +20,8 @@
 		"test": "node --run build && node --test dist/test/*.js"
 	},
 	"type": "module",
-	"packageManager": "pnpm@10.17.1+sha512.17c560fca4867ae9473a3899ad84a88334914f379be46d455cbf92e5cf4b39d34985d452d2583baf19967fa76cb5c17bc9e245529d0b98745721aa7200ecaf7a",
+	"packageManager": "pnpm@10.28.0+sha512.05df71d1421f21399e053fde567cea34d446fa02c76571441bfc1c7956e98e363088982d940465fd34480d4d90a0668bc12362f8aa88000a64e83d0b0e47be48",
 	"dependencies": {
-		"@lusc/util": "^2.0.1"
+		"@lusc/util": "^2.1.0"
 	}
 }
