@@ -1,6 +1,6 @@
 {
 	"devDependencies": {
-		"@lusc/eslint-config": "^10.2.0",
+		"@lusc/eslint-config": "^11.0.0",
 		"@lusc/tsconfig": "^7.2.0",
 		"@types/node": "^24.12.2",
 		"eslint": "^10.3.0",
