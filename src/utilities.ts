@@ -38,7 +38,7 @@ export const normalizeOptions = (
 	}
 
 	// Unless none are enabled, in that case enable all
-	if (!charSets.some(set => result[set])) {
+	if (charSets.every(set => result[set] !== true)) {
 		for (const set of charSets) {
 			result[set] = true;
 		}
@@ -49,7 +49,7 @@ export const normalizeOptions = (
 	if (lengthOverride !== undefined) {
 		result.length = Number(lengthOverride.trim());
 
-		if (!Number.isInteger(result.length)) {
+		if (!Number.isSafeInteger(result.length)) {
 			throw new TypeError(`Received non-integer length: "${lengthOverride}"`);
 		}
 	}
